@@ -1,79 +1,84 @@
-# port-scanner
-import socket
-from datetime import datetime
+# 🔐 Port Scanner
 
-# ─────────────────────────────────────
-# STEP 1: Set the target and port range
-# Change target to any IP or website
-# ─────────────────────────────────────
-target = "127.0.0.1"   # localhost (your own PC) - safe to test!
-start_port = 1
-end_port   = 1024
+A Python-based TCP port scanner tool built for cyber security learning and network analysis.
 
+---
 
-# ─────────────────────────────────────
-# STEP 2: Function to scan one port
-# Returns True if port is open
-# Returns False if port is closed
-# ─────────────────────────────────────
-def scan_port(ip, port):
-    try:
-        # Create a socket connection
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(0.5)  # Wait max 0.5 seconds
+## 📌 About This Project
 
-        # Try to connect to the port
-        result = sock.connect_ex((ip, port))
-        sock.close()
+This project was built as part of my cyber security learning journey.
+A port scanner checks which ports are open or closed on a computer or network — just like a real cyber security professional does!
 
-        # result == 0 means port is OPEN
-        if result == 0:
-            return True
-        else:
-            return False
+> ⚠️ **Ethical Use Only** — Only scan your own PC or networks you have permission to scan.
 
-    except:
-        return False
+---
 
+## ⚙️ How It Works
 
-# ─────────────────────────────────────
-# STEP 3: Main scan function
-# Loops through all ports and checks each one
-# ─────────────────────────────────────
-def run_scanner():
-    print("=" * 45)
-    print("       PORT SCANNER - Cyber Security Tool")
-    print("=" * 45)
-    print(f"Target   : {target}")
-    print(f"Ports    : {start_port} to {end_port}")
-    print(f"Started  : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("-" * 45)
+1. You give it a target IP address (default: 127.0.0.1 — your own PC)
+2. It scans ports 1 to 1024 one by one
+3. It tries to connect to each port using TCP
+4. If connection succeeds → Port is OPEN
+5. If connection fails → Port is CLOSED
+6. Shows all open ports at the end
 
-    open_ports = []  # List to store open ports
+---
 
-    # Loop through every port number
-    for port in range(start_port, end_port + 1):
+## 🛠️ Technologies Used
 
-        # Show progress every 100 ports
-        if port % 100 == 0:
-            print(f"Scanning port {port}...")
+- **Language:** Python 3
+- **Library:** socket (built-in — no installation needed!)
+- **Concept:** TCP/IP Networking, Port Scanning
 
-        # Check if port is open
-        if scan_port(target, port):
-            print(f"  [OPEN]  Port {port}")
-            open_ports.append(port)
+---
 
-    # Summary
-    print("-" * 45)
-    print(f"Scan Complete!")
-    print(f"Open Ports Found : {len(open_ports)}")
-    if open_ports:
-        print(f"Open Ports List  : {open_ports}")
-    print("=" * 45)
+## ▶️ How to Run
 
+1. Make sure Python is installed
+2. Run the script:
+```bash
+python port_scanner.py
+```
+3. To scan your own PC safely use: `127.0.0.1`
+4. To change target edit line 6:
+```python
+target = "127.0.0.1"
+```
 
-# ─────────────────────────────────────
-# STEP 4: Run the scanner
-# ─────────────────────────────────────
-run_scanner()
-Python TCP port scanner for cyber security
+---
+
+## 📸 Output Example
+
+```
+=============================================
+      PORT SCANNER - Cyber Security Tool
+=============================================
+Target   : 127.0.0.1
+Ports    : 1 to 1024
+---------------------------------------------
+Scanning port 100...
+  [OPEN]  Port 80
+  [OPEN]  Port 443
+---------------------------------------------
+Scan Complete!
+Open Ports Found : 2
+Open Ports List  : [80, 443]
+=============================================
+```
+
+---
+
+## 📚 What I Learned
+
+- TCP/IP networking concepts
+- Python socket programming
+- How port scanning works in cyber security
+- Network security fundamentals
+
+---
+
+## 👨‍💻 Author
+
+**Harsh Patel**
+BSc IT Student — GLS University, Ahmedabad
+GitHub: github.com/harshpatel-15
